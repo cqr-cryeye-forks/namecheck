@@ -2,6 +2,7 @@ import json
 import subprocess
 import sys
 import requests
+import validators
 
 username = sys.argv[1]
 
@@ -21,7 +22,7 @@ for user in existing_users:
         elif '[+] Profile url:' in line:
             profile_url = line.split(':', 1)[1].strip()
             break
-    if profile_url != '':
+    if validators.url(profile_url):
         if requests.get(profile_url).status_code == 404:
             profile_url = 'not found'
     else:
